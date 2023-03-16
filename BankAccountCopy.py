@@ -43,7 +43,9 @@ class BankAccount:
             'a valid number: '))
         
     def setHighInterstRate(self, new_rate):
-        self.__interestRate = new_rate
+        if self.__balance > 5000;
+            self.__interestRate = new_rate / 100
+        return self.__interestRate
     
 # Calculates interest amount accumulated on a period of time
     def getMonthlyInterest(self):

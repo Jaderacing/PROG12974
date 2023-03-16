@@ -66,6 +66,8 @@ def create_cust():
         # cust id = random.randint(10000, 999999)
         # balance = 
         # interest_rate = 
+        # higher interest rate = 
+        # send higher interest rate to account.setHighInterest()
         # account.Backaccount(name, id, balance, interest_rate)
 
 def update_cust():
