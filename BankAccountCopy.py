@@ -43,7 +43,7 @@ class BankAccount:
             'a valid number: '))
         
     def setHighInterstRate(self, new_rate):
-        if self.__balance > 5000;
+        if self.__balance > 5000:
             self.__interestRate = new_rate / 100
         return self.__interestRate
     
