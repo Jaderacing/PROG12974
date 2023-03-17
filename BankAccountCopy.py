@@ -31,9 +31,9 @@ class BankAccount:
     def setInterest(self, interest):
         self.__interestRate = interest
         
-    def setHighInterstRate(self, new_rate):
+    def setHighInterst(self, highInterest):
         if self.__balance > 5000:
-            self.__interestRate = new_rate / 100
+            self.__interestRate = highInterest
         return self.__interestRate
     
 # Methods

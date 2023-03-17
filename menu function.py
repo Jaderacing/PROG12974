@@ -2,7 +2,6 @@
 # Date v1.0 2023-03-16
 
 import BankAccount
-account = BankAccount.BankAccount()
 
 def main():
     while True:
@@ -60,7 +59,7 @@ def admin_menu():
 
 def create_cust():
     pass
-    account = BanckAccount.BankAccount()
+    account = BanckAccount.BankAccount(name, id, interest, balance)
         # number of accounts to create ( <101 )
         # cust_name = 
         # cust id = random.randint(10000, 999999)
