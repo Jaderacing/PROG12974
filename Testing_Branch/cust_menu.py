@@ -1,14 +1,26 @@
 # Customer-side menu
 
-import BankAccountCopy
+import BankAccountCopy as cust
+import random
 
-def cust_access():
-    customer = load_customers()
-    cust_id = input('Please enter your six-digit ID number: ')
-    if cust_id in customer:
-        cust_menu(cust_id)
-    else:
-        cust_id = input('ID not found! Please try again: ')
+INTEREST_CUTOFF = 5000
+INTEREST_MODIFIER = 1.5
+
+# def cust_access():
+#     customer = load_customers()
+#     cust_id = input('Please enter your six-digit ID number: ')
+#     if cust_id in customer:
+#         cust_menu(cust_id)
+#     else:
+#         cust_id = input('ID not found! Please try again: ')
+
+def main():
+    id = random.randint(100000, 999999)
+    name = input('Please input customer name: ')
+    interest = float(input('Please input the BASE interest rate: '))
+    balance = float(input('Please input the starting balance: '))
+    account = cust.BankAccount(name, id, interest, balance)
+    cust_menu(account)
 
 def cust_menu(account):
     while True:
@@ -26,21 +38,16 @@ def cust_menu(account):
             if selection == 1:
                 print(account)
             elif selection == 2:
-                with_amount = float(input('Please enter the amount that you '
-                'would like to withdraw: '))
-                withdraw(with_amount)
+                amount = float(input('Please enter the amount to withdraw: '))
+                withdraw(account, amount)
             elif selection == 3:
-                dep_amount = float(input('Please input the amount that you would'
-                ' like to deposit: '))
-                deposit(dep_amount)
+                amount = float(input('Please enter the amount to deposit: '))
+                deposit(account, amount)
             elif selection == 4:
-                print(f'Your monthly interest rate is '
-                f'{account.getInterestRate():.2f}%')
+                monthlyInterest(account)
             elif selection == 5:
-                print('Your balance for the account is '
-                f'${account.getBalance():.2f}')
                 print('Your interest amount is '
-                f'${account.getMonthlyInterest():.2f}')
+                f'{account.getMonthlyInterest():.2f}$')
             elif selection == 6:
                  exit()
             else:
@@ -50,14 +57,28 @@ def cust_menu(account):
                 print('Invalid input; please once again '
                 'do not enter characters!')
 
-def withdraw(amount):
-    while amount < 0:
-        amount = float(input('Please input a positive number: '))
-    account.withdraw(amount)
-    print(f'Your new balance is ${account.getBalance():.2f}')
+def withdraw(account, withdraw):
+    while withdraw >= account.getBalance():
+        withdraw = float(input('Insufficient funds! Input new number: '))
+    account.withdraw(withdraw)
+    print(f'{withdraw:.2f}$ withdrawn. New balance is '
+    f'{account.getBalance():.2f}$') 
 
-def deposit(amount):
-    while amount < 0:
-        amount = float(input('Please input a positive number: '))
-    account.deposit(amount)
-    print(f'Your new balance is ${account.getBalance():.2f}')
+def deposit(account, dep_amount):
+    while dep_amount < 0:
+        float(input('Please input a positive number: '))
+    account.deposit(dep_amount)
+    print(f'{dep_amount:.2f}$ deposited. New balance is '
+    f'{account.getBalance():.2f}$')
+
+def monthlyInterest(account):
+    print(f'{interest:.2f}%')
+    balance = account.getBalance()
+    if balance > INTEREST_CUTOFF:
+        interest += (INTEREST_MODIFIER / 100)
+        account.setInterest(interest)
+    else:
+        account.setInterest(interest)
+    print(f'{interest:.2f}%')
+
+main()

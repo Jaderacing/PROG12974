@@ -29,46 +29,26 @@ Customer Interest Rate: {self.__interestRate}%"""
 
     def setInterest(self, interest):
         self.__interestRate = interest
-        
-    def setHighInterst(self, highInterest):
-        if self.__balance > 5000:
-            self.__interestRate = highInterest
-        return self.__interestRate
+
+    # def setHighInterest(self, highInterest):
+    #     self.__highInterest = highInterest
     
 # Methods
 # Allows the user to withdraw an amount of money from their account
-    def withdraw(self, amount): 
-        try:
-            while amount > self.__balance:
-                amount = float(input("""Error; insufficient funds!
-Please input a new value: """))
-            print(f'${amount} withdrawn.')
-        except ValueError:
-            amount = float(input('Invalid characters. Please input '
-            'a number: '))
+    def withdraw(self, amount):
+        self.__balance -= amount 
+        return self.__balance
 
 # Allows the user to deposit an amount of money into their account
     def deposit(self, amount):
-        try:
-            while amount <= 0:
-                amount = float(input('Invalid number. Please input '
-                'positive number: '))
-            print(f'${amount:.2f} deposited.')
-            self.__balance += amount
-        except ValueError:
-            amount = float(input('Invalid characters. Please input '
-            'a valid number: '))
+        self.__balance += amount
+        return self.__balance
 
 # Calculates interest amount accumulated on a period of time
     def getMonthlyInterest(self):
-        try:
-            duration = int(input('For how many months would you like '
-            'to calculate the interest? '))
-            for count in range(duration):
-                interest = (self.__interestRate / 12 / 100) * self.__balance
-                self.__interestAmount += interest
-        except ValueError:
-            duration = int(input('Please input a valid number: '))
+        duration = int(input('Input the time you would like to calculate the interest: '))
+        self.__interestAmount = duration * ((self.__interestRate / 100 / 12) \
+        * self.__balance)
         return self.__interestAmount
 
 # Accessors
@@ -76,4 +56,4 @@ Please input a new value: """))
         return self.__balance
 
     def getInterestRate(self):
-        return float(self.__interestRate / 12)
+        return self.__interestRate / 12

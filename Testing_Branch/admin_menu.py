@@ -1,7 +1,10 @@
 import pickle
 import BankAccount
 
-FILE = customers.dat
+# FILE = customers.dat
+
+INTEREST_CUTOFF = 5000
+INTEREST_MODIFIER = 1.5
 
 # Administrative menu
 def admin_menu():
