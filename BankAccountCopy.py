@@ -4,8 +4,8 @@
 
 class BankAccount:
     def __init__(self, name, id, interest, balance):
-        self.__name = name
         self.__id = id
+        self.__name = name
         self.__balance = balance
         self.__interestRate = interest
         self.__interestAmount = 0
@@ -16,7 +16,26 @@ class BankAccount:
         Customer ID: {self.__id}
         Customer Balance: {self.__balance}
         Customer Interest Rate: {self.__interestRate}"""
+    
+# Mutators
 
+    def setId(self, id):
+        self.__id = id
+
+    def setName(self, name):
+        self.__name = name
+
+    def setBalance(self, balance):
+        self.__balance = balance
+
+    def setInterest(self, interest):
+        self.__interestRate = interest
+        
+    def setHighInterstRate(self, new_rate):
+        if self.__balance > 5000:
+            self.__interestRate = new_rate / 100
+        return self.__interestRate
+    
 # Methods
 # Allows the user to withdraw an amount of money from their account
     def withdraw(self, amount): 
@@ -41,18 +60,9 @@ class BankAccount:
         except ValueError:
             amount = float(input('Invalid characters. Please input '
             'a valid number: '))
-        
-    def setHighInterstRate(self, new_rate):
-        if self.__balance > 5000:
-            self.__interestRate = new_rate / 100
-        return self.__interestRate
-    
+
 # Calculates interest amount accumulated on a period of time
     def getMonthlyInterest(self):
-        if self.__balance > 5000:
-            self.__interestRate = self.__interestRateHigh
-        else:
-            self.__interestRate
         try:
             duration = int(input('For how many months would you like '
             'to calculate the interest? '))
