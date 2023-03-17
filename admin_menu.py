@@ -1,21 +1,22 @@
 import pickle
 import BankAccount
 
-FILE = customers.txt
+FILE = customers.dat
 
 # Administrative menu
 def admin_menu():
     pass
+    customer = load_customers()
     while True:
         try:
             print(f"\n{'Menu':^20}")
             print(f"{'-'*20}")
             print("""Which system would you like to access:
-            1: Create Customer(s)
-            2: Display Customers
-            3: View Customer Account
-            4: Update Customer Account
-            5: Exit""")
+1: Create Customer(s)
+2: Display Customers
+3: View Customer Account
+4: Update Customer Account
+5: Exit""")
             selection = int(input('Please make your selection: '))
 
             if selection == 1:
@@ -26,7 +27,7 @@ def admin_menu():
                 show_accounts()
             elif selection == 3:
                 pass
-                view_account()
+                view_account(customer)
             elif selection == 4:
                 pass
                 update_cust()
@@ -63,8 +64,8 @@ def update_cust():
 
 def load_customers():
     try:
-        input_file = open(FILE, 'r')
-        cust_list = input_file.load(input_file)
+        input_file = open(FILE, 'rb')
+        cust_list = pickle.load(input_file)
         input_file.close()
     except IOError:
         cust_list={}
@@ -83,10 +84,11 @@ def change(customer):
         print('ID not found.')
 
 def save_customers(customer):
-    output_file=open(FILE, 'w')
-    file.write(customer, output_file)
+    output_file=open(FILE, 'wb')
+    pickle.dump(customer, output_file)
     output_file.close()
 
-def view_account():
+def view_account(customer):
     pass
-    # parse list and view info specific to customer
+    cust_profile = input('Enter a customer ID to look up: ')
+    print(cust_profile.get(id, 'Customer not found'))

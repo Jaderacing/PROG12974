@@ -31,11 +31,11 @@ def admin_menu():
             print(f"\n{'Menu':^20}")
             print(f"{'-'*20}")
             print("""Which system would you like to access:
-            1: Create Customer(s)
-            2: Display Customers
-            3: View Customer Account
-            4: Update Customer Account
-            5: Exit""")
+1: Create Customer(s)
+2: Display Customers
+3: View Customer Account
+4: Update Customer Account
+5: Exit""")
             selection = int(input('Please make your selection: '))
 
             if selection == 1:

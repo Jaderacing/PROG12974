@@ -11,11 +11,10 @@ class BankAccount:
         self.__interestAmount = 0
 
     def __str__(self):
-        pass
         return f"""Customer Name: {self.__name}
-        Customer ID: {self.__id}
-        Customer Balance: {self.__balance}
-        Customer Interest Rate: {self.__interestRate}"""
+Customer ID: {self.__id}
+Customer Balance: ${self.__balance}
+Customer Interest Rate: {self.__interestRate}%"""
     
 # Mutators
 
@@ -40,11 +39,10 @@ class BankAccount:
 # Allows the user to withdraw an amount of money from their account
     def withdraw(self, amount): 
         try:
-            if amount <= self.__balance:
-                self.__balance -= amount
-            else:
+            while amount > self.__balance:
                 amount = float(input("""Error; insufficient funds!
-                Please input a new value: """))
+Please input a new value: """))
+            print(f'${amount} withdrawn.')
         except ValueError:
             amount = float(input('Invalid characters. Please input '
             'a number: '))
@@ -67,7 +65,7 @@ class BankAccount:
             duration = int(input('For how many months would you like '
             'to calculate the interest? '))
             for count in range(duration):
-                interest = (self.__interestRate / 12) * self.__balance
+                interest = (self.__interestRate / 12 / 100) * self.__balance
                 self.__interestAmount += interest
         except ValueError:
             duration = int(input('Please input a valid number: '))
@@ -78,4 +76,4 @@ class BankAccount:
         return self.__balance
 
     def getInterestRate(self):
-        return float(self.__interestRate / 12) / 100
+        return float(self.__interestRate / 12)
