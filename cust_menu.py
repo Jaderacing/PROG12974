@@ -2,8 +2,15 @@
 
 import BankAccountCopy
 
+def cust_access():
+    customer = load_customers()
+    cust_id = input('Please enter your six-digit ID number: ')
+    if cust_id in customer:
+        cust_menu(cust_id)
+    else:
+        cust_id = input('ID not found! Please try again: ')
+
 def cust_menu(account):
-    pass
     while True:
         try:
             print(f"\n{'Menu':^20}")

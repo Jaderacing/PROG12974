@@ -71,8 +71,8 @@ def load_customers():
     return cust_list
 
 def change(customer):
-    name = input("Who's information would you like to change: ")
-    if name in customer:
+    id = input("What is the ID of the customer you would like to change: ")
+    if id in customer:
         name = input('Enter the new name: ')
         balance = float(input('Enter the new balance: '))
         interest = input('Enter the new interest rate: ')
@@ -80,7 +80,7 @@ def change(customer):
         customer[name] = entry
         print('Information updated.')
     else:
-        print('That name is not found.')
+        print('ID not found.')
 
 def save_customers(customer):
     output_file=open(FILE, 'w')
