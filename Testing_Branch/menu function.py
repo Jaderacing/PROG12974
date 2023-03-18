@@ -58,8 +58,30 @@ def admin_menu():
             print('Invalid input; please once again do not enter characters!')
 
 def create_cust():
-    pass
-    account = BanckAccount.BankAccount(name, id, interest, balance)
+    customer_list = []
+    while(True):
+        try:
+            numberOfCustomers = int(input('\nHow many customers would you like to create?: '))
+            
+            if numberOfCustomers <= 100:
+                for customer in range(numberOfCustomers):
+                    print(f'Creating customer #{customer+1}:')
+                    cust_name = input('Please enter the name of the customer: ')
+                    cust_id = random.randint(10000, 999999)
+                    balance = random.randint(1000, 5000)
+                    interest_rate = float(input('Please set the users interest rate: '))
+                    account = BankAccount.BankAccount(cust_name, cust_id, interest_rate, balance)
+                    customer_list.append(account)
+                print(f'{numberOfCustomers} new customers have been created.')
+            else:
+                print('Please create no more than 100 new customers!')
+                continue  
+        except ValueError:
+            print('Invalid input; please try again!')
+            continue
+
+        return customer_list
+    
         # number of accounts to create ( <101 )
         # cust_name = 
         # cust id = random.randint(10000, 999999)
