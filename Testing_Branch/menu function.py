@@ -97,6 +97,13 @@ def display_cust(customer_list):
 def update_cust():
     pass
     # parse customer list and update info
+    name = input('Please enter a new name for the customer: ')
+    base_interest = float(input('Please input the new BASE interest rate: '))
+    high_interest = base_interest + INTEREST_MODIFIER
+    balance = float(input('Please input the new balance: '))
+    BankAccount.setName(name)
+    BankAccount.setBalance(balance)
+    BankAccount.setInterest(base_interest, high_interest)
 
 def view_account():
     pass
