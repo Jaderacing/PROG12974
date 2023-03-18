@@ -2,6 +2,7 @@
 # Date v1.0 2023-03-16
 
 import BankAccount
+import random
 
 def main():
     while True:
@@ -39,10 +40,9 @@ def admin_menu():
             selection = int(input('Please make your selection: '))
 
             if selection == 1:
-                pass
                 create_cust()
             elif selection == 2:
-                pass
+                display_cust()
                 # print account list
             elif selection == 3:
                 pass
@@ -91,6 +91,12 @@ def create_cust():
         # send higher interest rate to account.setHighInterest()
         # account.Backaccount(name, id, balance, interest_rate)
 
+def display_cust(customer_list):
+    i = 1
+    for cust in customer_list:
+        print(f'Customer {i}: {cust}')
+        i += 1
+        
 def update_cust():
     pass
     # parse customer list and update info
