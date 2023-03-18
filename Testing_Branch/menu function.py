@@ -20,7 +20,7 @@ def main():
             if selection == 1:
                 admin_menu()
             elif selection == 2:
-                cust_menu()
+                cust_input()
             else:
                 exit()
         except ValueError:
@@ -102,7 +102,11 @@ def view_account():
     pass
     # parse list and view info specific to customer
 
-
+def cust_input():
+    id = int(input('Please input your six-digit ID: '))
+    # Parse list for ID and send to BankAccount.BankAccout()
+    account = BankAccount.BankAccount()
+    cust_menu(account)
 
 # THIS BLOCK FOR TESTING ONLY
 ###########################################################################
