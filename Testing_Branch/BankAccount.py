@@ -56,9 +56,6 @@ Customer Interest Rate: {self.__interestRate}%"""
 # Calculates interest amount accumulated on a period of time
     def getMonthlyInterest(self):
         duration = int(input('Input the time you would like to calculate the interest: '))        
-        # if self.__balance > self.__cutoff:
-        #     self.__interestAmount = duration * ((self.__highInterest / 100 / 12) * self.__balance)            
-        # else:
         self.__interestAmount = duration * ((self.__interestRate / 100 / 12) * self.__balance)
         return self.__interestAmount
 
