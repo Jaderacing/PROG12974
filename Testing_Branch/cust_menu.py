@@ -1,26 +1,23 @@
 # Customer-side menu
 
+# THIS BLOCK FOR TESTING ONLY
+###########################################################################
 import BankAccountCopy as cust
 import random
 
-INTEREST_CUTOFF = 5000
 INTEREST_MODIFIER = 1.5
-
-# def cust_access():
-#     customer = load_customers()
-#     cust_id = input('Please enter your six-digit ID number: ')
-#     if cust_id in customer:
-#         cust_menu(cust_id)
-#     else:
-#         cust_id = input('ID not found! Please try again: ')
+INTEREST_CUTOFF = 5000
 
 def main():
     id = random.randint(100000, 999999)
     name = input('Please input customer name: ')
     interest = float(input('Please input the BASE interest rate: '))
+    highInterest = interest + INTEREST_MODIFIER
+    cutoff = INTEREST_CUTOFF
     balance = float(input('Please input the starting balance: '))
-    account = cust.BankAccount(name, id, interest, balance)
+    account = cust.BankAccount(name, id, interest, highInterest, cutoff, balance)
     cust_menu(account)
+###########################################################################
 
 def cust_menu(account):
     while True:
@@ -44,7 +41,7 @@ def cust_menu(account):
                 amount = float(input('Please enter the amount to deposit: '))
                 deposit(account, amount)
             elif selection == 4:
-                monthlyInterest(account)
+                print(f'{account.getInterestRate():.2f}%')
             elif selection == 5:
                 print('Your interest amount is '
                 f'{account.getMonthlyInterest():.2f}$')
@@ -72,13 +69,6 @@ def deposit(account, dep_amount):
     f'{account.getBalance():.2f}$')
 
 def monthlyInterest(account):
-    print(f'{interest:.2f}%')
-    balance = account.getBalance()
-    if balance > INTEREST_CUTOFF:
-        interest += (INTEREST_MODIFIER / 100)
-        account.setInterest(interest)
-    else:
-        account.setInterest(interest)
-    print(f'{interest:.2f}%')
+    print(f'{account.getMonthlyInterest():.2f}$')
 
 main()

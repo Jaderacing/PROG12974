@@ -10,7 +10,7 @@ def main():
     interest = float(input('Please input the BASE interest rate: '))
     balance = float(input('Please input the starting balance: '))
     
-    account = BankAccountCopy.BankAccount(name, id, interest, balance)
+    account = BankAccountCopy.BankAccount(name, id, baseInterest, balance)
 
     deposit = float(input('Please input deposit: '))
     while deposit < 0:

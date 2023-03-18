@@ -3,8 +3,8 @@ import BankAccount
 
 # FILE = customers.dat
 
-INTEREST_CUTOFF = 5000
-INTEREST_MODIFIER = 1.5
+INTEREST_CUTOFF = 5000 # Amount in which the higher interest applies
+INTEREST_MODIFIER = 1.5 # Amount to ADD to the base interest rate
 
 # Administrative menu
 def admin_menu():
@@ -74,17 +74,16 @@ def load_customers():
         cust_list={}
     return cust_list
 
-def change(customer):
-    id = input("What is the ID of the customer you would like to change: ")
-    if id in customer:
-        name = input('Enter the new name: ')
-        balance = float(input('Enter the new balance: '))
-        interest = input('Enter the new interest rate: ')
-        entry = account.BankAccount(name, balance, interest)
-        customer[name] = entry
-        print('Information updated.')
-    else:
-        print('ID not found.')
+# def change(customer):
+#     id = input("What is the ID of the customer you would like to change: ")
+#         name = input('Enter the new name: ')
+#         balance = float(input('Enter the new balance: '))
+#         interest = input('Enter the new interest rate: ')
+#         entry = account.BankAccount(name, balance, interest)
+#         customer[name] = entry
+#         print('Information updated.')
+#     else:
+#         print('ID not found.')
 
 def save_customers(customer):
     output_file=open(FILE, 'wb')
