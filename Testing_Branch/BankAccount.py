@@ -29,6 +29,10 @@ Customer Interest Rate: {self.__interestRate}%"""
     def setInterest(self, baseInterest, highInterest):
         self.__baseInterest = baseInterest
         self.__highInterest = highInterest
+        if self.__balance > self.__cutoff:
+            self.__interestRate = self.__highInterest
+        else:
+            self.__interestRate = self.__baseInterest
     
 # Methods
 # Allows the user to withdraw an amount of money from their account
