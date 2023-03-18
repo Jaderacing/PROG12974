@@ -1,14 +1,34 @@
+# Menu for selecting which user branch to use
+# Date v1.0 2023-03-16
+
 import BankAccount
-
-# FILE = customers.dat
-
+import random
 INTEREST_CUTOFF = 5000 # Amount in which the higher interest applies
 INTEREST_MODIFIER = 1.5 # Amount to ADD to the base interest rate
+
+def main():
+    while True:
+        try:
+            print(f"\n{'Menu':^20}")
+            print(f"{'-'*20}")
+            print("""Which system would you like to access:
+            1: Administrator
+            2: Customer
+            3: Exit""")
+            selection = int(input('Please make your selection: '))
+
+            if selection == 1:
+                admin_menu()
+            elif selection == 2:
+                cust_menu()
+            else:
+                exit()
+        except ValueError:
+            print('Invalid input; please once again do not enter characters!')
 
 # Administrative menu
 def admin_menu():
     pass
-    customer = load_customers()
     while True:
         try:
             print(f"\n{'Menu':^20}")
@@ -22,14 +42,13 @@ def admin_menu():
             selection = int(input('Please make your selection: '))
 
             if selection == 1:
-                pass
                 create_cust()
             elif selection == 2:
-                pass
-                show_accounts()
+                display_cust()
+                # print account list
             elif selection == 3:
                 pass
-                view_account(customer)
+                view_account()
             elif selection == 4:
                 pass
                 update_cust()
@@ -41,60 +60,49 @@ def admin_menu():
             print('Invalid input; please once again do not enter characters!')
 
 def create_cust():
-    pass
-    account = BanckAccount.BankAccount()
-        # number of accounts to create ( <101 )
-        # cust_name = 
-        # cust id = random.randint(10000, 999999)
-        # balance = 
-        # interest_rate = 
-        # high interest rate = 
-        # send higher interest rate to account.setHighInterest()
-        # account.Backaccount(name, id, balance, interest_rate)
+    customer_list = []
+    while(True):
+        try:
+            numberOfCustomers = int(input('\nHow many customers would you like to create?: '))
+            
+            if numberOfCustomers <= 100:
+                for customer in range(numberOfCustomers):
+                    print(f'Creating customer #{customer+1}:')
+                    cust_name = input('Please enter the name of the customer: ')
+                    cust_id = random.randint(10000, 999999)
+                    balance = random.randint(1000, 5000)
+                    baseInterest = float(input('Please set the users interest rate: '))
+                    highInterest = baseInterest + INTEREST_MODIFIER
+                    cutoff = INTEREST_CUTOFF
+                    account = BankAccount.BankAccount(cust_name, cust_id, baseInterest, highInterest, cutoff, balance)
+                    customer_list.append(account)
+                print(f'{numberOfCustomers} new customers have been created.')
+            else:
+                print('Please create no more than 100 new customers!')
+                continue  
+        except ValueError:
+            print('Invalid input; please try again!')
+            continue
 
-def show_accounts():
-    pass
-    cust_list = load_customers()
-    print(cust_list)
+        return customer_list
+    
 
 
+def display_cust(customer_list):
+    i = 1
+    for cust in customer_list:
+        print(f'Customer {i}: {cust}')
+        i += 1
+        
 def update_cust():
     pass
-    customers = load_customers()
-    change(customers)
-    save_customers(customers)
+    # parse customer list and update info
 
-def load_customers():
-    try:
-        input_file = open(FILE, 'rb')
-        cust_list = pickle.load(input_file)
-        input_file.close()
-    except IOError:
-        cust_list={}
-    return cust_list
-
-def change(customer):
-    id = input("What is the ID of the customer you would like to change: ")
-        # name = input('Enter the new name: ')
-        # balance = float(input('Enter the new balance: '))
-        # interest = input('Enter the new interest rate: ')
-        # entry = account.BankAccount(name, balance, interest)
-        # customer[name] = entry
-        # print('Information updated.')
-    # else:
-    #     print('ID not found.')
-
-def save_customers(customer):
-    output_file=open(FILE, 'wb')
-    pickle.dump(customer, output_file)
-    output_file.close()
-
-def view_account(customer):
+def view_account():
     pass
-    cust_profile = input('Enter a customer ID to look up: ')
-    print(cust_profile.get(id, 'Customer not found'))
+    # parse list and view info specific to customer
 
-    # Customer-side menu
+
 
 # THIS BLOCK FOR TESTING ONLY
 ###########################################################################
