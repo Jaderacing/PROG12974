@@ -45,7 +45,8 @@ def admin_menu():
             selection = int(input('Please make your selection: '))
 
             if selection == 1:
-                create_cust()
+                customer_list = create_cust()
+                save_customers(customer_list)
             elif selection == 2:
                 display_cust(customers)
             elif selection == 3:
@@ -129,21 +130,20 @@ def update_cust():
         except ValueError:
             print("Invalid input. Not updated")
 
-
-def view_account():
-    pass
-    # parse list and view info specific to customer
+def view_account(customer):
+    name = input("Enter a name: ")
+    print(customer.get(name, "That name is not found."))
 
 def load_customers():
     try:
-        input_file=open(FILE, "rb")
-        cust_dct=pickle.load(input_file)
+        input_file = open(FILE, "rb")
+        cust_dct = pickle.load(input_file)
         input_file.close()
         
     except IOError:
-        contact_dct={}
+        cust_dct = {}
         
-    return contact_dct
+    return cust_dct
 
 def look_up(customer):
     name = input("Enter a name: ")
