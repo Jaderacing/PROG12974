@@ -20,7 +20,7 @@ def main():
             selection = int(input('Please make your selection: '))
 
             if selection == 1:
-                admin_menu()
+                admin_menu(customers)
             elif selection == 2:
                 cust_input(customers)
             else:
@@ -29,7 +29,7 @@ def main():
             print('Invalid input; please once again do not enter characters!')
 
 # Administrative menu
-def admin_menu():
+def admin_menu(customers):
     pass
     customers = load_customers()
     while True:
@@ -104,7 +104,7 @@ def display_cust(customer_list):
         
 def update_cust(customers):
     name = input("Enter a name: ")
-    if name in customers:    
+    if account in customers:    
         name = input("Please enter a new name for the customer (or 'ENTER' to skip): ")
         if name.strip() == "":
             print('Value not updated')
@@ -136,7 +136,7 @@ def update_cust(customers):
 def view_account(customers):
     name = input("Enter a name: ")
     if name in customers:
-        print(str())
+        print(str(name))
 
 
 def load_customers():
@@ -194,9 +194,10 @@ def save_customers(customers):
     output_file.close()
 
 def cust_input(id):
-    name = (input("Enter your id: "))
-    print(id.get(name))
-    cust_menu(id)
+    name = (input("Enter your name: "))
+    if name in id:
+        print(id.get(name))
+        cust_menu(id)
 
 # THIS BLOCK FOR TESTING ONLY
 ###########################################################################
