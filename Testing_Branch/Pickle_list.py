@@ -1,13 +1,14 @@
 import pickle
-FILE = customers.dat
-
-
 import BankAccount
 import random
+
 INTEREST_CUTOFF = 5000 # Amount in which the higher interest applies
 INTEREST_MODIFIER = 1.5 # Amount to ADD to the base interest rate
 
+FILE = 'contacts.dat'
+
 def main():
+    customers = load_customers()
     while True:
         try:
             print(f"\n{'Menu':^20}")
@@ -21,7 +22,7 @@ def main():
             if selection == 1:
                 admin_menu()
             elif selection == 2:
-                cust_input()
+                cust_input(customers)
             else:
                 exit()
         except ValueError:
@@ -31,7 +32,6 @@ def main():
 def admin_menu():
     pass
     customers = load_customers()
-    save_customers(customers)
     while True:
         try:
             print(f"\n{'Menu':^20}")
@@ -183,7 +183,87 @@ def change(account):
     else:
         print("That name is not found.")
 
-def save_customers(mycontacts):
+def save_customers(customers):
     output_file=open(FILE, "wb")
-    pickle.dump(mycontacts, output_file)
+    pickle.dump(customers, output_file)
     output_file.close()
+
+def cust_input(id):
+    id = input("Enter your id: ")
+    print(id.get(name, "That name is not found."))
+    cust_menu(id)
+
+# THIS BLOCK FOR TESTING ONLY
+###########################################################################
+###########################################################################
+# import BankAccount as cust
+# import random
+
+# INTEREST_MODIFIER = 1.5
+# INTEREST_CUTOFF = 5000
+
+# def main():
+#     id = random.randint(100000, 999999)
+#     name = input('Please input customer name: ')
+#     interest = float(input('Please input the BASE interest rate: '))
+#     highInterest = interest + INTEREST_MODIFIER
+#     cutoff = INTEREST_CUTOFF
+#     balance = float(input('Please input the starting balance: '))
+#     account = cust.BankAccount(name, id, interest, highInterest, cutoff, balance)
+#     cust_menu(account)
+###########################################################################
+###########################################################################
+
+def cust_menu(account):
+    while True:
+        try:
+            print(f"\n{'Menu':^20}")
+            print(f"{'-'*20}")
+            print('1: Check Account Details')
+            print('2: Withdraw Money')
+            print('3: Deposit Money')
+            print('4: Monthly Interest Rate')
+            print('5: Monthly Interest Earned')
+            print('6: Exit')
+            selection = int(input('Please make your selection: '))
+
+            if selection == 1:
+                print(account)
+            elif selection == 2:
+                amount = float(input('Please enter the amount to withdraw: '))
+                withdraw(account, amount)
+            elif selection == 3:
+                amount = float(input('Please enter the amount to deposit: '))
+                deposit(account, amount)
+            elif selection == 4:
+                print(f'{account.getInterestRate():.2f}%')
+            elif selection == 5:
+                print('Your interest amount is '
+                f'{account.getMonthlyInterest():.2f}$')
+            elif selection == 6:
+                 exit()
+            else:
+                print('Invalid number; please enter a '
+                'number between 1-6!')
+        except ValueError:
+                print('Invalid input; please once again '
+                'do not enter characters!')
+
+def withdraw(account, withdraw):
+    while withdraw > account.getBalance():
+        withdraw = float(input('Insufficient funds! Input new number: '))
+    account.withdraw(withdraw)
+    print(f'{withdraw:.2f}$ withdrawn. New balance is '
+    f'{account.getBalance():.2f}$') 
+
+def deposit(account, dep_amount):
+    while dep_amount < 0:
+        float(input('Please input a positive number: '))
+    account.deposit(dep_amount)
+    print(f'{dep_amount:.2f}$ deposited. New balance is '
+    f'{account.getBalance():.2f}$')
+
+def monthlyInterest(account):
+    print(f'{account.getMonthlyInterest():.2f}$')
+
+main()
