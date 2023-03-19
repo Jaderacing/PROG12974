@@ -136,7 +136,7 @@ def update_cust(customers):
 def view_account(customers):
     name = input("Enter a name: ")
     if name in customers:
-        print(str(name))
+        print(str())
 
 
 def load_customers():
