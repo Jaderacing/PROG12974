@@ -5,7 +5,7 @@ import random
 INTEREST_CUTOFF = 5000 # Amount in which the higher interest applies
 INTEREST_MODIFIER = 1.5 # Amount to ADD to the base interest rate
 
-FILE = 'contacts.dat'
+FILE = 'customers.dat'
 
 def main():
     customers = load_customers()
