@@ -99,38 +99,42 @@ def display_cust(customer_list):
         print(f'Customer {i}: {cust}')
         i += 1
         
-def update_cust(name):
-    name = input("Please enter a new name for the customer (or 'ENTER' to skip): ")
-    if name.strip() == "":
-        print('Value not updated')
-    else:
-        account.setName(name)
-        print('Customer updated.')
-    base_interest = input("Please input the new BASE interest rate (or 'ENTER' to skip): ")
-    if base_interest.strip() == "":
-        print('Value not updated')
-    else:
-        try:
-            new_base_interest = float(base_interest)
-            high_interest = new_base_interest + INTEREST_MODIFIER    
-            account.setInterest(new_base_interest, high_interest)
-            print('Customer updated.')
-        except ValueError:
-            print("Invalid input. Value not updated")
-    balance = input("Please input the new balance (or 'ENTER' to skip): ")
-    if balance.strip() == "":
-        print('Value not updated')
-    else:
-        try:
-            new_balance = float(balance)
-            account.setBalance(new_balance)
-            print('Customer updated.')
-        except ValueError:
-            print("Invalid input. Not updated")
-
-def view_account(customer):
+def update_cust(customers):
     name = input("Enter a name: ")
-    print(name.get(name, "That name is not found."))
+    if name in customers:    
+        name = input("Please enter a new name for the customer (or 'ENTER' to skip): ")
+        if name.strip() == "":
+            print('Value not updated')
+        else:
+            account.setName(name)
+            print('Customer updated.')
+        base_interest = input("Please input the new BASE interest rate (or 'ENTER' to skip): ")
+        if base_interest.strip() == "":
+            print('Value not updated')
+        else:
+            try:
+                new_base_interest = float(base_interest)
+                high_interest = new_base_interest + INTEREST_MODIFIER    
+                account.setInterest(new_base_interest, high_interest)
+                print('Customer updated.')
+            except ValueError:
+                print("Invalid input. Value not updated")
+        balance = input("Please input the new balance (or 'ENTER' to skip): ")
+        if balance.strip() == "":
+            print('Value not updated')
+        else:
+            try:
+                new_balance = float(balance)
+                account.setBalance(new_balance)
+                print('Customer updated.')
+            except ValueError:
+                print("Invalid input. Not updated")
+
+def view_account(customers):
+    name = input("Enter a name: ")
+    if name in customers:
+        print(str())
+
 
 def load_customers():
     try:
@@ -188,7 +192,7 @@ def save_customers(customers):
 
 def cust_input(id):
     name = (input("Enter your id: "))
-    print(id.get(name, "That name is not found."))
+    print(id.get(name))
     cust_menu(id)
 
 # THIS BLOCK FOR TESTING ONLY
