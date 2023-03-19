@@ -40,10 +40,9 @@ def admin_menu():
             selection = int(input('Please make your selection: '))
 
             if selection == 1:
-                create_cust()
+                customers = create_cust()
             elif selection == 2:
-                display_cust()
-                # print account list
+                display_cust(customers)
             elif selection == 3:
                 pass
                 view_account()
@@ -81,7 +80,6 @@ def create_cust():
         except ValueError:
             print('Invalid input; please try again!')
             continue
-
         return customer_list
     
 
