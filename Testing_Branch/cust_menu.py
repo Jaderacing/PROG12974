@@ -1,8 +1,7 @@
-# Customer-side menu
-
 # THIS BLOCK FOR TESTING ONLY
 ###########################################################################
-import BankAccountCopy as cust
+###########################################################################
+import BankAccount as cust
 import random
 
 INTEREST_MODIFIER = 1.5
@@ -18,6 +17,12 @@ def main():
     account = cust.BankAccount(name, id, interest, highInterest, cutoff, balance)
     cust_menu(account)
 ###########################################################################
+###########################################################################
+def cust_input():
+    id = int(input('Please input your six-digit ID: '))
+    # Parse list for ID and send to BankAccount.BankAccout()
+    account = BankAccount.BankAccount()
+    cust_menu(account)
 
 def cust_menu(account):
     while True:
@@ -55,7 +60,7 @@ def cust_menu(account):
                 'do not enter characters!')
 
 def withdraw(account, withdraw):
-    while withdraw >= account.getBalance():
+    while withdraw > account.getBalance():
         withdraw = float(input('Insufficient funds! Input new number: '))
     account.withdraw(withdraw)
     print(f'{withdraw:.2f}$ withdrawn. New balance is '
