@@ -12,9 +12,9 @@ def main():
             print(f"\n{'Menu':^20}")
             print(f"{'-'*20}")
             print("""Which system would you like to access:
-            1: Administrator
-            2: Customer
-            3: Exit""")
+1: Administrator
+2: Customer
+3: Exit""")
             selection = int(input('Please make your selection: '))
 
             if selection == 1:
@@ -70,7 +70,7 @@ def create_cust():
                     print(f'Creating customer #{customer+1}:')
                     cust_name = input('Please enter the name of the customer: ')
                     cust_id = random.randint(10000, 999999)
-                    balance = random.randint(1000, 5000)
+                    balance = random.randint(1000, 7500)
                     baseInterest = float(input('Please set the users interest rate: '))
                     highInterest = baseInterest + INTEREST_MODIFIER
                     cutoff = INTEREST_CUTOFF
@@ -138,6 +138,7 @@ def cust_input():
 
 # THIS BLOCK FOR TESTING ONLY
 ###########################################################################
+###########################################################################
 import BankAccount as cust
 import random
 
@@ -153,6 +154,7 @@ def main():
     balance = float(input('Please input the starting balance: '))
     account = cust.BankAccount(name, id, interest, highInterest, cutoff, balance)
     cust_menu(account)
+###########################################################################
 ###########################################################################
 
 def cust_menu(account):
