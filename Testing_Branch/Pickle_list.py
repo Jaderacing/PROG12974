@@ -47,16 +47,19 @@ def admin_menu():
             if selection == 1:
                 customer_list = create_cust()
                 save_customers(customer_list)
+                
             elif selection == 2:
                 display_cust(customers)
-            elif selection == 3:
-                pass
+                
+            elif selection == 3:  
                 view_account(customers)
+                
             elif selection == 4:
-                pass
                 update_cust(customers)
+                
             elif selection == 5:
                 exit()
+                
             else:
                 selection = int(input('Please input a number between 1-5: '))
         except ValueError:
