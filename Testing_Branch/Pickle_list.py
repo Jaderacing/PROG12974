@@ -63,7 +63,7 @@ def admin_menu():
             print('Invalid input; please once again do not enter characters!')
 
 def create_cust():
-    output_file = file.open(FILE, 'wb')
+    output_file = open('FILE', 'wb')
     customer_list = []
     while(True):
         try:
@@ -99,9 +99,7 @@ def display_cust(customer_list):
         print(f'Customer {i}: {cust}')
         i += 1
         
-def update_cust():
-    pass
-    # parse customer list and update info
+def update_cust(name):
     name = input("Please enter a new name for the customer (or 'ENTER' to skip): ")
     if name.strip() == "":
         print('Value not updated')
@@ -132,7 +130,7 @@ def update_cust():
 
 def view_account(customer):
     name = input("Enter a name: ")
-    print(customer.get(name, "That name is not found."))
+    print(name.get(name, "That name is not found."))
 
 def load_customers():
     try:
@@ -189,7 +187,7 @@ def save_customers(customers):
     output_file.close()
 
 def cust_input(id):
-    id = input("Enter your id: ")
+    name = (input("Enter your id: "))
     print(id.get(name, "That name is not found."))
     cust_menu(id)
 

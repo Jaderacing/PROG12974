@@ -65,3 +65,6 @@ Customer Interest Rate: {self.__interestRate}%"""
 
     def getInterestRate(self):
         return self.__interestRate / 12
+    
+    def getName(self):
+        return self.__name
