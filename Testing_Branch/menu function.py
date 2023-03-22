@@ -98,28 +98,28 @@ def update_cust():
     pass
     # parse customer list and update info
     name = input("Please enter a new name for the customer (or 'ENTER' to skip): ")
-    if name.strip() == "":
+    if name == "":
         print('Value not updated')
     else:
         account.setName(name)
         print('Customer updated.')
     base_interest = input("Please input the new BASE interest rate (or 'ENTER' to skip): ")
-    if base_interest.strip() == "":
+    if base_interest() == "":
         print('Value not updated')
     else:
         try:
-            new_base_interest = float(base_interest)
+            new_base_interest = float(input('Please enter the new interest rate: ')
             high_interest = new_base_interest + INTEREST_MODIFIER    
             account.setInterest(new_base_interest, high_interest)
             print('Customer updated.')
         except ValueError:
             print("Invalid input. Value not updated")
     balance = input("Please input the new balance (or 'ENTER' to skip): ")
-    if balance.strip() == "":
+    if balance() == "":
         print('Value not updated')
     else:
         try:
-            new_balance = float(balance)
+            new_balance = float(input('Please enter a new balacne: '))
             account.setBalance(new_balance)
             print('Customer updated.')
         except ValueError:
@@ -132,28 +132,27 @@ def view_account():
 
 def cust_input():
     id = int(input('Please input your six-digit ID: '))
-    # Parse list for ID and send to BankAccount.BankAccout()
     account = BankAccount.BankAccount()
     cust_menu(account)
 
 # THIS BLOCK FOR TESTING ONLY
 ###########################################################################
 ###########################################################################
-import BankAccount as cust
-import random
+# import BankAccount as cust
+# import random
 
-INTEREST_MODIFIER = 1.5
-INTEREST_CUTOFF = 5000
+# INTEREST_MODIFIER = 1.5
+# INTEREST_CUTOFF = 5000
 
-def main():
-    id = random.randint(100000, 999999)
-    name = input('Please input customer name: ')
-    interest = float(input('Please input the BASE interest rate: '))
-    highInterest = interest + INTEREST_MODIFIER
-    cutoff = INTEREST_CUTOFF
-    balance = float(input('Please input the starting balance: '))
-    account = cust.BankAccount(name, id, interest, highInterest, cutoff, balance)
-    cust_menu(account)
+# def main():
+#     id = random.randint(100000, 999999)
+#     name = input('Please input customer name: ')
+#     interest = float(input('Please input the BASE interest rate: '))
+#     highInterest = interest + INTEREST_MODIFIER
+#     cutoff = INTEREST_CUTOFF
+#     balance = float(input('Please input the starting balance: '))
+#     account = cust.BankAccount(name, id, interest, highInterest, cutoff, balance)
+#     cust_menu(account)
 ###########################################################################
 ###########################################################################
 
