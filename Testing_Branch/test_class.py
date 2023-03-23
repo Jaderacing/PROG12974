@@ -1,70 +1,46 @@
-import random
 import BankAccount
+import random
 
+INTEREST_MODIFIER = 1
 INTEREST_CUTOFF = 5000
-INTEREST_MODIFIER = 1.5
+
 
 def main():
-    id = random.randint(100000, 999999)
-    name = input('Please input customer name: ')
-    baseInterest = float(input('Please input the BASE interest rate: '))
-    highInterest = baseInterest + INTEREST_MODIFIER
-    cutoff = INTEREST_CUTOFF
-    balance = float(input('Please input the starting balance: '))
-    account = BankAccount.BankAccount(name, id, baseInterest, highInterest, cutoff, balance)
+    list = create_cust()
+    for key in list:
+        print(key, list[key])
+        print(key)
+    view_cust(list)
 
-    # deposit = float(input('Please input deposit: '))
-    # while deposit < 0:
-    #     float(input('Please input a positive number: '))
-    # account.deposit(deposit)
-    # print(f'${deposit:.2f} deposited. New balance is '
-    # f'{account.getBalance():.2f}$')
-    # print()
-    print(str(account))
-    print()
-    name = input("Please enter a new name for the customer (or 'ENTER' to skip): ")
-    if name.strip() == "":
-        print('Value not updated')
-    else:
-        account.setName(name)
-        print('Customer updated.')
-    base_interest = input("Please input the new BASE interest rate (or 'ENTER' to skip): ")
-    if base_interest.strip() == "":
-        print('Value not updated')
-    else:
+def create_cust():
+    customer_list = {}
+    while(True):
         try:
-            new_base_interest = float(base_interest)
-            high_interest = new_base_interest + INTEREST_MODIFIER    
-            account.setInterest(new_base_interest, high_interest)
-            print('Customer updated.')
+            numberOfCustomers = int(input('\nHow many customers would you like to create?: '))
+            if numberOfCustomers <= 100:
+                for customer in range(numberOfCustomers):
+                    print(f'Creating customer #{customer+1}:')
+                    cust_name = input('Please enter the name of the customer: ')
+                    cust_id = random.randint(100000, 999999)
+                    balance = random.randint(1000, 7500)
+                    baseInterest = float(input('Please set the users interest rate: '))
+                    highInterest = baseInterest + INTEREST_MODIFIER
+                    cutoff = INTEREST_CUTOFF
+                    account = BankAccount.BankAccount(cust_name, cust_id, baseInterest, highInterest, cutoff, balance)
+                    customer_list[cust_id] = account
+                print(f'{numberOfCustomers} new customers have been created.')
+            else:
+                print('Please create no more than 100 new customers!')
+                continue  
         except ValueError:
-            print("Invalid input. Value not updated")
-    balance = input("Please input the new balance (or 'ENTER' to skip): ")
-    if balance.strip() == "":
-        print('Value not updated')
-    else:
-        try:
-            new_balance = float(balance)
-            account.setBalance(new_balance)
-            print('Customer updated.')
-        except ValueError:
-            print("Invalid input. Not updated")
-    print()
-    print(str(account))
+            print('Invalid input; please try again!')
+            continue
+        return customer_list
 
-    # withdraw = float(input('Please input withdraw: '))
-    # while withdraw >= account.getBalance():
-    #     withdraw = float(input('Insufficient funds! Input new number: '))
-    # account.withdraw(withdraw)
-    # print(f'{withdraw:.2f}$ withdrawn. New balance is '
-    # f'{account.getBalance():.2f}$')  
-    # print()
-    
-    print(f'{account.getBalance():.2f}')
-    print(f'{account.getInterestRate():.2f}')
-    # print(f'{account.getMonthlyInterest():.2f}')
-    # print()
-    
-    # print(str(account))
+def view_cust(account):
+    id = int(input('Please input the id of the customer: '))
+    print(account.get(id, 'Customer not found'))
+
+
 
 main()

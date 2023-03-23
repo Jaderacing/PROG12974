@@ -17,14 +17,14 @@ def create_cust():
             if numberOfCustomers <= 100:
                 for customer in range(numberOfCustomers):
                     print(f'Creating customer #{customer+1}:')
-                    cust_name = input('Please enter the name of the customer: ')
+                    cust_name = 'Dave'
                     cust_id = random.randint(100000, 999999)
                     balance = random.randint(1000, 7500)
-                    baseInterest = float(input('Please set the users interest rate: '))
+                    baseInterest = 2.5
                     highInterest = baseInterest + INTEREST_MODIFIER
                     cutoff = INTEREST_CUTOFF
                     account = BankAccount.BankAccount(cust_name, cust_id, baseInterest, highInterest, cutoff, balance)
-                    customer_list[cust_name] = account
+                    customer_list[cust_id] = account
                 print(f'{numberOfCustomers} new customers have been created.')
             else:
                 print('Please create no more than 100 new customers!')
