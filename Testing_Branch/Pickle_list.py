@@ -104,15 +104,15 @@ def display_cust(customer_list):
         
 def update_cust(customers):
     name = input("Enter a name: ")
-    if account in customers:    
+    if name in customers:    
         name = input("Please enter a new name for the customer (or 'ENTER' to skip): ")
-        if name.strip() == "":
+        if name == "":
             print('Value not updated')
         else:
             account.setName(name)
             print('Customer updated.')
         base_interest = input("Please input the new BASE interest rate (or 'ENTER' to skip): ")
-        if base_interest.strip() == "":
+        if base_interest == "":
             print('Value not updated')
         else:
             try:
@@ -123,7 +123,7 @@ def update_cust(customers):
             except ValueError:
                 print("Invalid input. Value not updated")
         balance = input("Please input the new balance (or 'ENTER' to skip): ")
-        if balance.strip() == "":
+        if balance == "":
             print('Value not updated')
         else:
             try:

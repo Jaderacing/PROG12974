@@ -102,7 +102,7 @@ def update_cust():
         print('Value not updated')
     else:
         try:
-            new_base_interest = float(input('Please enter the new interest rate: ')
+            new_base_interest = float(input('Please enter the new interest rate: '))
             high_interest = new_base_interest + INTEREST_MODIFIER    
             account.setInterest(new_base_interest, high_interest)
             print('Customer updated.')
