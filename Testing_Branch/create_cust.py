@@ -7,23 +7,23 @@ INTEREST_CUTOFF = 5000
 
 def main():
     list = create_cust()
+    print(list(list.items()))
 #    lookup(list)
 #    update_cust(list)
-    for key in list:
-        print(key, list[key])
+#    for key in list:
+#        print(key, list[key])
 
 def create_cust():
     customer_list = {}
     while(True):
         try:
             numberOfCustomers = int(input('\nHow many customers would you like to create?: '))
-            
             if numberOfCustomers <= 100:
                 for customer in range(numberOfCustomers):
                     print(f'Creating customer #{customer+1}:')
                     cust_name = input('Please enter the name of the customer: ')
                     cust_id = random.randint(100000, 999999)
-                    balance = 6500 # random.randint(1000, 7500)
+                    balance = random.randint(1000, 7500)
                     baseInterest = float(input('Please set the users interest rate: '))
                     highInterest = baseInterest + INTEREST_MODIFIER
                     cutoff = INTEREST_CUTOFF
@@ -37,9 +37,10 @@ def create_cust():
             print('Invalid input; please try again!')
             continue
         return customer_list
+
 def lookup(account):
     name = input('Please input the name: ')
-    print(name, account[name])
+    print(account.get(name, 'Name not found!'))
 
 def update_cust(account):
     name = input('Please enter a name to update: ')
