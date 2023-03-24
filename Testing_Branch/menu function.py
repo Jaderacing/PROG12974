@@ -61,12 +61,12 @@ def admin_menu():
             print('Invalid input; please once again do not enter characters!')
 
 def create_cust():
-    customer_list = {}
     while(True):
         try:
             numberOfCustomers = int(input('\nHow many customers would you like to create?: '))
-            baseInterest = float(input('Please set the BASE interest rate: '))
             if numberOfCustomers >= 10 and numberOfCustomers <= 100:
+                customer_list = {}
+                baseInterest = float(input('Please set the BASE interest rate: '))
                 for customer in range(numberOfCustomers):
                     cust_id = random.randint(100000, 999999)
                     print(f"""Creating customer #{customer+1}
