@@ -37,7 +37,7 @@ def create_cust():
 
 def display_customers():
     end_of_file = False
-    input_file = open('customers.dat', 'rb')
+    input_file = open('bankfile.dat', 'rb')
     cust_dict = {}
     while not end_of_file:
         try:
