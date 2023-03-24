@@ -10,7 +10,6 @@ INTEREST_MODIFIER = 1.5 # Amount to ADD to the base interest rate
 FILE = 'customers.dat'
 
 def main():
-    accounts = load_customers()
     while True:
         try:
             print(f"\n{'Menu':^20}")
@@ -21,9 +20,9 @@ def main():
 3: Exit""")
             selection = int(input('Please make your selection: '))
             if selection == 1:
-                admin_menu(accounts)
+                customer_list = admin_menu()
             elif selection == 2:
-                cust_input(accounts)
+                cust_input()
                 #cust_menu(accounts)
             else:
                 exit()
@@ -78,7 +77,7 @@ ID: {cust_id}: """)
                     balance = int(input('Please input the starting balance: '))
                     highInterest = baseInterest + INTEREST_MODIFIER
                     account = BankAccount.BankAccount(cust_name, cust_id, baseInterest, highInterest, INTEREST_CUTOFF, balance)
-                    customer_list[cust_id] = account
+                    customer_file[cust_id] = account
                 customer_file.close()
                 print(f'File has been created with: {numberOfCustomers} new customers.')
                 break
@@ -87,10 +86,9 @@ ID: {cust_id}: """)
                 continue  
         except ValueError:
             print('Invalid input; please try again!')
-            continue
-        finally: # Just incase something happens 
-            customer_file.close()
-            return customer_list
+        return customer_list
+        # finally: # Just incase something happens 
+        #     customer_file.close()
 
 # Load a dct or create one if not found
 def load_customers():
@@ -100,9 +98,13 @@ def load_customers():
         input_file.close() 
     except IOError:
         cust_dct = {}
+    print(cust_dct)
     return cust_dct
 
 def display_cust_list():
+    # list = load_customers()
+    # for key in list:
+    #     print(key, list[key])
     end_of_file = False
     input_file = open(FILE, 'rb')
     cust_dict = {}

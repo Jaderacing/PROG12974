@@ -1,16 +1,20 @@
 import BankAccount
 import random
+import pickle
 
 INTEREST_MODIFIER = 1
 INTEREST_CUTOFF = 5000
+FILE = 'customers.dat'
 
 
 def main():
-    list = create_cust()
+    list = load_customers()
+#    list = create_cust()
     for key in list:
         print(key, list[key])
         print(key)
-    cust_input(list)
+    view_cust(list)
+    save_customers(list)
 
 def create_cust():
     customer_list = {}
@@ -40,6 +44,20 @@ def create_cust():
 def view_cust(account):
     id = int(input('Please input the id of the customer: '))
     print(account.get(id, 'Customer not found'))
+
+def load_customers():
+    try:
+        input_file = open(FILE, "rb")
+        cust_dct = pickle.load(input_file)
+        input_file.close() 
+    except IOError:
+        cust_dct = {}
+    return cust_dct
+
+def save_customers(account):
+    out_file = open(FILE, 'wb')
+    pickle.dump(account, out_file)
+    out_file.close()
 
 def cust_input(account):
     id = int(input('Please input your six-digit ID: '))
