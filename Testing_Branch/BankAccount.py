@@ -1,8 +1,9 @@
-# Class handling customer ID, name, balance, interest rate
+# Class handling customer ID, name, balance, interest rate, etc.
 # Withdraw and deposit handling
-# Date: v1.0 2023-03-16
+# Date: v1.0 2023-03-24
 
 class BankAccount:
+    # Constructor
     def __init__(self, name, id, baseInterest, highInterest, cutoff, balance):
         self.__id = id
         self.__name = name
@@ -13,13 +14,14 @@ class BankAccount:
         self.__cutoff = cutoff
         self.__interestAmount = 0
 
+    # Default string (prints out when you try to print the object)
     def __str__(self):
         return f"""Customer Name: {self.__name}
 Customer ID: {self.__id}
 Customer Balance: ${self.__balance}
 Customer Interest Rate: {self.__interestRate}%"""
     
-# Mutators
+# Mutators (setters)
     def setName(self, name):
         self.__name = name
 
@@ -59,7 +61,7 @@ Customer Interest Rate: {self.__interestRate}%"""
         self.__interestAmount = duration * ((self.__interestRate / 100 / 12) * self.__balance)
         return self.__interestAmount
 
-# Accessors
+# Accessors (getters)
     def getBalance(self):
         return self.__balance
 
@@ -71,3 +73,5 @@ Customer Interest Rate: {self.__interestRate}%"""
     
     def getID(self):
         return self.__id
+    
+# Hi sir :)
