@@ -24,11 +24,12 @@ def main():
                 admin_menu(accounts)
             elif selection == 2:
                 cust_input(accounts)
+                #cust_menu(accounts)
             else:
+                save_customers(accounts)
                 exit()
         except ValueError:
             print('Invalid input; please once again do not enter characters!')
-        save_customers(accounts)
 
 # Administrative menu
 def admin_menu(accounts):
@@ -68,9 +69,9 @@ def create_cust():
 
             if numberOfCustomers >= 10 and numberOfCustomers <= 100:
                 for customer in range(numberOfCustomers):
-                    print(f'Creating customer #{customer+1}:')
-                    cust_name = input('Please enter the name of the customer: ')
                     cust_id = random.randint(100000, 999999)
+                    print(f'Creating customer #{customer+1}, ID: {cust_id}: ')
+                    cust_name = input('Please enter the name of the customer: ')
                     balance = int(input('Please input the starting balance: '))
                     baseInterest = float(input('Please set the users interest rate: '))
                     highInterest = baseInterest + INTEREST_MODIFIER
@@ -103,33 +104,32 @@ def display_cust(customer_list):
         print(f'Customer {i}: {cust}')
         i += 1
         
-def update_cust(account):
-    name = input('Please enter a name to update: ')
-    if name in account:
-        base_interest = input("Please input the new BASE interest rate (or 'ENTER' to skip): ")
-        if base_interest() == "":
-            print('Value not updated')
-        else:
-            try:
-                new_base_interest = float(input('Please enter the new interest rate: '))
-                high_interest = new_base_interest + INTEREST_MODIFIER    
-                account.setInterest(new_base_interest, high_interest)
-                print('Customer updated.')
-            except ValueError:
-                print("Invalid input. Value not updated")
-        balance = input("Please input the new balance (or 'ENTER' to skip): ")
-        if balance == "":
-            print('Value not updated')
-        else:
-            try:
-                new_balance = float(input('Please enter a new balacne: '))
-                account.setBalance(new_balance)
-                print('Customer updated.')
-            except ValueError:
-                print("Invalid input. Not updated")
-
-        update = account.BankAccount(base_interest, high_interest, balance)
-        account[name] = update
+# def update_cust(account):
+#     id = input('Please enter the ID to update: ')
+#     if id in account:
+#         base_interest = input("Would you like to update the interest rate (y/n): ")
+#         if base_interest == "n":
+#             print('Value not updated')
+#         else:
+#             try:
+#                 new_base_interest = float(input('Please enter the new interest rate: '))
+#                 high_interest = new_base_interest + INTEREST_MODIFIER
+#                 print('Customer updated.')
+#             except ValueError:
+#                 print("Invalid input. Value not updated")
+#         balance = input("Would you like to input a new balance (y/n): ")
+#         if balance == "n":
+#             print('Value not updated')
+#         else:
+#             try:
+#                 new_balance = float(input('Please enter a new balacne: '))
+#                 print('Customer updated.')
+#             except ValueError:
+#                 print("Invalid input. Not updated")
+#         update = BankAccount.BankAccount(name, id, new_base_interest, high_interest, INTEREST_CUTOFF, new_balance)
+#         account[id] = update
+#     else:
+#         print('Customer not found')
 
 
 def view_cust(account):
@@ -144,8 +144,12 @@ def save_customers(customers):
 
 def cust_input(account):
     id = int(input('Please input your six-digit ID: '))
-    customer = account.get(id, 'User not found!')
-    cust_menu(customer)
+    if id in account:
+        cust_menu(id)
+    else:
+        id = int(input('Customer not found; try again or 0 to quit: '))
+    if id == 0:
+        exit()
 
 # THIS BLOCK FOR TESTING ONLY
 ###########################################################################
@@ -195,7 +199,7 @@ def cust_menu(account):
                 print('Your interest amount is '
                 f'{account.getMonthlyInterest():.2f}$')
             elif selection == 6:
-                 exit()
+                exit()
             else:
                 print('Invalid number; please enter a '
                 'number between 1-6!')
