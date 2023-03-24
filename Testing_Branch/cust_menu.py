@@ -1,7 +1,7 @@
 # THIS BLOCK FOR TESTING ONLY
 ###########################################################################
 ###########################################################################
-import BankAccount as cust
+import BankAccount
 import random
 
 INTEREST_MODIFIER = 1.5
@@ -14,15 +14,14 @@ def main():
     highInterest = interest + INTEREST_MODIFIER
     cutoff = INTEREST_CUTOFF
     balance = float(input('Please input the starting balance: '))
-    account = cust.BankAccount(name, id, interest, highInterest, cutoff, balance)
+    account = BankAccount.BankAccount(name, id, interest, highInterest, cutoff, balance)
     cust_menu(account)
 ###########################################################################
 ###########################################################################
-def cust_input():
+def cust_input(account):
     id = int(input('Please input your six-digit ID: '))
-    # Parse list for ID and send to BankAccount.BankAccout()
-    account = BankAccount.BankAccount()
-    cust_menu(account)
+    customer = account.get(id, 'User not found!')
+    cust_menu(customer)
 
 def cust_menu(account):
     while True:

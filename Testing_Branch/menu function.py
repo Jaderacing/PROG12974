@@ -3,10 +3,14 @@
 
 import BankAccount
 import random
+import pickle
+
 INTEREST_CUTOFF = 5000 # Amount in which the higher interest applies
 INTEREST_MODIFIER = 1.5 # Amount to ADD to the base interest rate
+FILE = 'customers.dat'
 
 def main():
+    accounts = load_customers()
     while True:
         try:
             print(f"\n{'Menu':^20}")
@@ -16,19 +20,18 @@ def main():
 2: Customer
 3: Exit""")
             selection = int(input('Please make your selection: '))
-
             if selection == 1:
-                admin_menu()
+                admin_menu(accounts)
             elif selection == 2:
-                cust_input()
+                cust_input(accounts)
             else:
                 exit()
         except ValueError:
             print('Invalid input; please once again do not enter characters!')
+        save_customers(accounts)
 
 # Administrative menu
-def admin_menu():
-    pass
+def admin_menu(accounts):
     while True:
         try:
             print(f"\n{'Menu':^20}")
@@ -42,51 +45,57 @@ def admin_menu():
             selection = int(input('Please make your selection: '))
 
             if selection == 1:
-                cust_list = create_cust(cust_list)
+                create_cust(accounts)
             elif selection == 2:
-                display_cust(cust_list)
+                display_cust(accounts)
                 # print account list
             elif selection == 3:
-                pass
-                view_account()
+                view_cust(accounts)
             elif selection == 4:
-                pass
-                update_cust()
+                update_cust(accounts)
             elif selection == 5:
-                exit()
+                return
             else:
                 selection = int(input('Please input a number between 1-5: '))
         except ValueError:
             print('Invalid input; please once again do not enter characters!')
 
 def create_cust():
-    customer_list = []
     while(True):
         try:
+            customer_file = open(FILE, 'wb')
             numberOfCustomers = int(input('\nHow many customers would you like to create?: '))
-            
-            if numberOfCustomers <= 100:
+
+            if numberOfCustomers >= 10 and numberOfCustomers <= 100:
                 for customer in range(numberOfCustomers):
                     print(f'Creating customer #{customer+1}:')
                     cust_name = input('Please enter the name of the customer: ')
-                    cust_id = random.randint(10000, 999999)
-                    balance = random.randint(1000, 7500)
+                    cust_id = random.randint(100000, 999999)
+                    balance = int(input('Please input the starting balance: '))
                     baseInterest = float(input('Please set the users interest rate: '))
                     highInterest = baseInterest + INTEREST_MODIFIER
-                    cutoff = INTEREST_CUTOFF
-                    account = BankAccount.BankAccount(cust_name, cust_id, baseInterest, highInterest, cutoff, balance)
-                    customer_list.append(account)
-                print(f'{numberOfCustomers} new customers have been created.')
+                    account = BankAccount.BankAccount(cust_name, cust_id, baseInterest, highInterest, INTEREST_CUTOFF, balance)
+                    pickle.dump(account, customer_file)
+                customer_file.close()
+                print(f'File has been created with: {numberOfCustomers} new customers.')
+                break
             else:
-                print('Please create no more than 100 new customers!')
+                print('Please create no less than 10, and no more than 100 customers!')
                 continue  
         except ValueError:
             print('Invalid input; please try again!')
             continue
+        finally: # Just incase something happens 
+            customer_file.close()
 
-        return customer_list
-    
-
+def load_customers():
+    try:
+        input_file = open(FILE, "rb")
+        cust_dct = pickle.load(input_file)
+        input_file.close() 
+    except IOError:
+        cust_dct = {}
+    return cust_dct
 
 def display_cust(customer_list):
     i = 1
@@ -123,14 +132,20 @@ def update_cust(account):
         account[name] = update
 
 
-def view_account():
-    pass
-    # parse list and view info specific to customer
+def view_cust(account):
+    id = int(input('Please input the ID of the customer: '))
+    print(account.get(id, 'Customer not found'))
+    return
 
-def cust_input():
+def save_customers(customers):
+    output_file=open(FILE, "wb")
+    pickle.dump(customers, output_file)
+    output_file.close()
+
+def cust_input(account):
     id = int(input('Please input your six-digit ID: '))
-    account = BankAccount.BankAccount()
-    cust_menu(account)
+    customer = account.get(id, 'User not found!')
+    cust_menu(customer)
 
 # THIS BLOCK FOR TESTING ONLY
 ###########################################################################

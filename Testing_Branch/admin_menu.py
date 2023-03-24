@@ -81,8 +81,6 @@ def create_cust():
             print('Invalid input; please try again!')
             continue
         return customer_list
-    
-
 
 def display_cust(customer_list):
     i = 1
