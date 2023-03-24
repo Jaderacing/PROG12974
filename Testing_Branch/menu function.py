@@ -97,7 +97,8 @@ def load_customers():
 def display_cust_list():
     list = load_customers()
     for key in list:
-        print(key, list[key])
+        print(list[key])
+        print()
     # end_of_file = False
     # input_file = open(FILE, 'rb')
     # cust_dict = {}
