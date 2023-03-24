@@ -10,10 +10,10 @@ FILE = 'customers.dat'
 def main():
     list = load_customers()
 #    list = create_cust()
-    for key in list:
-        print(key, list[key])
-        print(key)
-    view_cust(list)
+    for v in list.keys():
+        print(v)
+#    view_cust(list)
+    cust_input(list)
     save_customers(list)
 
 def create_cust():
