@@ -89,6 +89,7 @@ def create_cust():
         finally: # Just incase something happens 
             customer_file.close()
 
+# Load a dct or create one if not found
 def load_customers():
     try:
         input_file = open(FILE, "rb")
@@ -98,32 +99,43 @@ def load_customers():
         cust_dct = {}
     return cust_dct
 
-def display_cust(customer_list):
-    i = 1
-    for cust in customer_list:
-        print(f'Customer {i}: {cust}')
-        i += 1
-        
+def display_cust():
+    end_of_file = False
+    input_file = open(FILE, 'rb')
+    cust_dict = {}
+    while not end_of_file:
+        try:
+            cust = pickle.load(input_file)
+            cust_dict[cust.self.__id()] = cust
+            print(f'Name is {cust.self.__name()}\n')
+            print(f'Name is {cust.self.__id()}\n')
+            print(f'Name is {cust.self.__balance()}\n')
+            print(f'Name is {cust.self.__interestRate()}\n')
+
+        except EOFError:
+            end_of_file = True
+    input_file.close()
+
+# Update account information        
 def update_cust(account):
     id = input('Please enter the ID to update: ')
     if id in account:
-            name = input('Please enter a new name for the customer: ')
-            try:
-                new_base_interest = float(input('Please enter the new interest rate: '))
-                high_interest = new_base_interest + INTEREST_MODIFIER
-                print('Customer updated.')
-            except ValueError:
-                print("Invalid input. Value not updated")
-            try:
-                new_balance = float(input('Please enter a new balacne: '))
-                print('Customer updated.')
-            except ValueError:
-                print("Invalid input. Not updated")
+        name = input('Please enter a new name for the customer: ')
+        try:
+            new_base_interest = float(input('Please enter the new interest rate: '))
+            high_interest = new_base_interest + INTEREST_MODIFIER
+            print('Customer updated.')
+        except ValueError:
+            print("Invalid input. Value not updated")
+        try:
+            new_balance = float(input('Please enter a new balacne: '))
+            print('Customer updated.')
+        except ValueError:
+            print("Invalid input. Not updated")
         update = BankAccount.BankAccount(name, id, new_base_interest, high_interest, INTEREST_CUTOFF, new_balance)
         account[id] = update
     else:
         print('Customer not found')
-
 
 def view_cust(account):
     id = int(input('Please input the ID of the customer: '))
