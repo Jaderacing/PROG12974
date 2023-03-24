@@ -104,32 +104,25 @@ def display_cust(customer_list):
         print(f'Customer {i}: {cust}')
         i += 1
         
-# def update_cust(account):
-#     id = input('Please enter the ID to update: ')
-#     if id in account:
-#         base_interest = input("Would you like to update the interest rate (y/n): ")
-#         if base_interest == "n":
-#             print('Value not updated')
-#         else:
-#             try:
-#                 new_base_interest = float(input('Please enter the new interest rate: '))
-#                 high_interest = new_base_interest + INTEREST_MODIFIER
-#                 print('Customer updated.')
-#             except ValueError:
-#                 print("Invalid input. Value not updated")
-#         balance = input("Would you like to input a new balance (y/n): ")
-#         if balance == "n":
-#             print('Value not updated')
-#         else:
-#             try:
-#                 new_balance = float(input('Please enter a new balacne: '))
-#                 print('Customer updated.')
-#             except ValueError:
-#                 print("Invalid input. Not updated")
-#         update = BankAccount.BankAccount(name, id, new_base_interest, high_interest, INTEREST_CUTOFF, new_balance)
-#         account[id] = update
-#     else:
-#         print('Customer not found')
+def update_cust(account):
+    id = input('Please enter the ID to update: ')
+    if id in account:
+            name = input('Please enter a new name for the customer: ')
+            try:
+                new_base_interest = float(input('Please enter the new interest rate: '))
+                high_interest = new_base_interest + INTEREST_MODIFIER
+                print('Customer updated.')
+            except ValueError:
+                print("Invalid input. Value not updated")
+            try:
+                new_balance = float(input('Please enter a new balacne: '))
+                print('Customer updated.')
+            except ValueError:
+                print("Invalid input. Not updated")
+        update = BankAccount.BankAccount(name, id, new_base_interest, high_interest, INTEREST_CUTOFF, new_balance)
+        account[id] = update
+    else:
+        print('Customer not found')
 
 
 def view_cust(account):
