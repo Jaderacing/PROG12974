@@ -66,7 +66,6 @@ def create_cust():
         try:
             customer_file = open(FILE, 'wb')
             numberOfCustomers = int(input('\nHow many customers would you like to create?: '))
-
             if numberOfCustomers >= 10 and numberOfCustomers <= 100:
                 for customer in range(numberOfCustomers):
                     cust_id = random.randint(100000, 999999)
