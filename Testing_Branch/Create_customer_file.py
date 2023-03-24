@@ -25,6 +25,7 @@ def create_cust_file():
                     interest_rate = float(input('Please set the users interest rate: '))
                     account = BankAccount.BankAccount(cust_name, cust_id, interest_rate, balance)
                     pickle.dump(account, customer_file)
+                    customer_list[cust_name] = account
                 customer_file.close()
                 print(f'File has been created with: {numberOfCustomers} new customers.')
                 break
