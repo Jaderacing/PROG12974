@@ -10,6 +10,7 @@ INTEREST_MODIFIER = 1.5 # Amount to ADD to the base interest rate
 FILE = 'customers.dat'
 
 def main():
+    account = load_customers()
     while True:
         try:
             print(f"\n{'Menu':^20}")
@@ -21,18 +22,18 @@ def main():
             selection = int(input('Please make your selection: '))
             if selection == 1:
                 customer_list = admin_menu()
+                save_customers(customer_list)
             elif selection == 2:
-                cust_input()
+                cust_input(account)
                 #cust_menu(accounts)
             else:
                 exit()
         except ValueError:
             print('Invalid input; please once again do not enter characters!')
-        finally:
-            save_customers(accounts)
 
 # Administrative menu
-def admin_menu(accounts):
+def admin_menu():
+    accounts = load_customers
     while True:
         try:
             print(f"\n{'Menu':^20}")
@@ -44,11 +45,10 @@ def admin_menu(accounts):
 4: Update Customer Account
 5: Exit""")
             selection = int(input('Please make your selection: '))
-
             if selection == 1:
                 create_cust()
             elif selection == 2:
-                display_cust_list()
+                display_cust_list(accounts)
                 # print account list
             elif selection == 3:
                 view_cust(accounts)
@@ -65,7 +65,6 @@ def create_cust():
     customer_list = {}
     while(True):
         try:
-            customer_file = open(FILE, 'wb')
             numberOfCustomers = int(input('\nHow many customers would you like to create?: '))
             baseInterest = float(input('Please set the BASE interest rate: '))
             if numberOfCustomers >= 10 and numberOfCustomers <= 100:
@@ -77,8 +76,7 @@ ID: {cust_id}: """)
                     balance = int(input('Please input the starting balance: '))
                     highInterest = baseInterest + INTEREST_MODIFIER
                     account = BankAccount.BankAccount(cust_name, cust_id, baseInterest, highInterest, INTEREST_CUTOFF, balance)
-                    customer_file[cust_id] = account
-                customer_file.close()
+                    customer_list[cust_id] = account
                 print(f'File has been created with: {numberOfCustomers} new customers.')
                 break
             else:
@@ -86,9 +84,8 @@ ID: {cust_id}: """)
                 continue  
         except ValueError:
             print('Invalid input; please try again!')
+        save_customers(customer_list)
         return customer_list
-        # finally: # Just incase something happens 
-        #     customer_file.close()
 
 # Load a dct or create one if not found
 def load_customers():
@@ -101,25 +98,25 @@ def load_customers():
     print(cust_dct)
     return cust_dct
 
-def display_cust_list():
-    # list = load_customers()
-    # for key in list:
-    #     print(key, list[key])
-    end_of_file = False
-    input_file = open(FILE, 'rb')
-    cust_dict = {}
-    while not end_of_file:
-        try:
-            cust = pickle.load(input_file)
-            cust_dict[cust.self.__id()] = cust
-            print(f'Name is {cust.self.__name()}\n')
-            print(f'Name is {cust.self.__id()}\n')
-            print(f'Name is {cust.self.__balance()}\n')
-            print(f'Name is {cust.self.__interestRate()}\n')
+def display_cust_list(list):
+    list = load_customers()
+    for key in list:
+        print(key, list[key])
+    # end_of_file = False
+    # input_file = open(FILE, 'rb')
+    # cust_dict = {}
+    # while not end_of_file:
+    #     try:
+    #         cust = pickle.load(input_file)
+    #         cust_dict[cust.self.__id()] = cust
+    #         print(f'Name is {cust.self.__name()}\n')
+    #         print(f'Name is {cust.self.__id()}\n')
+    #         print(f'Name is {cust.self.__balance()}\n')
+    #         print(f'Name is {cust.self.__interestRate()}\n')
 
-        except EOFError:
-            end_of_file = True
-    input_file.close()
+    #     except EOFError:
+    #         end_of_file = True
+    # input_file.close()
 
 # Update account information        
 def update_cust(account):
@@ -141,6 +138,7 @@ def update_cust(account):
         account[id] = update
     else:
         print('Customer not found')
+    save_customers(account)
 
 def view_cust(account):
     id = int(input('Please input the ID of the customer: '))
@@ -154,11 +152,8 @@ def save_customers(customers):
 
 def cust_input(account):
     id = int(input('Please input your six-digit ID or 0 to quit: '))
-    while id != 0:
-        if id in account:
-            cust_menu(id)
-        else:
-            id = int(input('Customer not found; try again or 0 to quit: '))
+    if id in account:
+        cust_menu(id)
 
 
 # THIS BLOCK FOR TESTING ONLY
