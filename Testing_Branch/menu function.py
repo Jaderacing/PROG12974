@@ -26,10 +26,11 @@ def main():
                 cust_input(accounts)
                 #cust_menu(accounts)
             else:
-                save_customers(accounts)
                 exit()
         except ValueError:
             print('Invalid input; please once again do not enter characters!')
+        finally:
+            save_customers(accounts)
 
 # Administrative menu
 def admin_menu(accounts):
@@ -46,9 +47,9 @@ def admin_menu(accounts):
             selection = int(input('Please make your selection: '))
 
             if selection == 1:
-                create_cust(accounts)
+                create_cust()
             elif selection == 2:
-                display_cust(accounts)
+                display_cust_list()
                 # print account list
             elif selection == 3:
                 view_cust(accounts)
@@ -62,20 +63,22 @@ def admin_menu(accounts):
             print('Invalid input; please once again do not enter characters!')
 
 def create_cust():
+    customer_list = {}
     while(True):
         try:
             customer_file = open(FILE, 'wb')
             numberOfCustomers = int(input('\nHow many customers would you like to create?: '))
+            baseInterest = float(input('Please set the BASE interest rate: '))
             if numberOfCustomers >= 10 and numberOfCustomers <= 100:
                 for customer in range(numberOfCustomers):
                     cust_id = random.randint(100000, 999999)
-                    print(f'Creating customer #{customer+1}, ID: {cust_id}: ')
+                    print(f"""Creating customer #{customer+1}
+ID: {cust_id}: """)
                     cust_name = input('Please enter the name of the customer: ')
                     balance = int(input('Please input the starting balance: '))
-                    baseInterest = float(input('Please set the users interest rate: '))
                     highInterest = baseInterest + INTEREST_MODIFIER
                     account = BankAccount.BankAccount(cust_name, cust_id, baseInterest, highInterest, INTEREST_CUTOFF, balance)
-                    pickle.dump(account, customer_file)
+                    customer_list[cust_id] = account
                 customer_file.close()
                 print(f'File has been created with: {numberOfCustomers} new customers.')
                 break
@@ -87,6 +90,7 @@ def create_cust():
             continue
         finally: # Just incase something happens 
             customer_file.close()
+            return customer_list
 
 # Load a dct or create one if not found
 def load_customers():
@@ -98,7 +102,7 @@ def load_customers():
         cust_dct = {}
     return cust_dct
 
-def display_cust():
+def display_cust_list():
     end_of_file = False
     input_file = open(FILE, 'rb')
     cust_dict = {}
@@ -147,13 +151,13 @@ def save_customers(customers):
     output_file.close()
 
 def cust_input(account):
-    id = int(input('Please input your six-digit ID: '))
-    if id in account:
-        cust_menu(id)
-    else:
-        id = int(input('Customer not found; try again or 0 to quit: '))
-    if id == 0:
-        exit()
+    id = int(input('Please input your six-digit ID or 0 to quit: '))
+    while id != 0:
+        if id in account:
+            cust_menu(id)
+        else:
+            id = int(input('Customer not found; try again or 0 to quit: '))
+
 
 # THIS BLOCK FOR TESTING ONLY
 ###########################################################################
@@ -228,4 +232,5 @@ def deposit(account, dep_amount):
 def monthlyInterest(account):
     print(f'{account.getMonthlyInterest():.2f}$')
 
-main()
+if __name__ == '__main__':
+    main()
