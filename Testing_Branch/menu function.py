@@ -5,8 +5,8 @@ import BankAccount
 import random
 import pickle
 
-INTEREST_CUTOFF = 5000 # Amount in which the higher interest applies
-INTEREST_MODIFIER = 1.5 # Amount to ADD to the base interest rate
+# INTEREST_CUTOFF = 5000 # Amount in which the higher interest applies
+# INTEREST_MODIFIER = 1.5 # Amount to ADD to the base interest rate
 FILE = 'customers.dat'
 
 def main():
@@ -73,8 +73,11 @@ def create_cust():
 ID: {cust_id}: """)
                     cust_name = input('Please enter the name of the customer: ')
                     balance = int(input('Please input the starting balance: '))
-                    highInterest = baseInterest + INTEREST_MODIFIER
-                    account = BankAccount.BankAccount(cust_name, cust_id, baseInterest, highInterest, INTEREST_CUTOFF, balance)
+                    highInterest = float(input('Please input the HIGHER interest rate: '))
+                    cutoff = float(input('Please input the minimum balance in which to apply the higher interest rate: '))
+                    #highInterest = baseInterest + INTEREST_MODIFIER
+                    account = BankAccount.BankAccount(cust_name, cust_id, baseInterest, highInterest, cutoff, balance)
+                    # account = BankAccount.BankAccount(cust_name, cust_id, baseInterest, highInterest, INTEREST_CUTOFF, balance)
                     customer_list[cust_id] = account
                 print(f'File has been created with: {numberOfCustomers} new customers.')
                 return customer_list
@@ -123,16 +126,15 @@ def update_cust():
         name = input('Please enter a new name for the customer: ')
         try:
             new_base_interest = float(input('Please enter the new interest rate: '))
-            high_interest = new_base_interest + INTEREST_MODIFIER
+            #high_interest = new_base_interest + INTEREST_MODIFIER
             print('Customer updated.')
-        except ValueError:
-            print("Invalid input. Value not updated")
-        try:
+            high_interest = float(input('Please input the HIGHER interest rate: '))
+            cutoff = float(input('Please input the minimum balance in which to apply the higher interest rate: '))
             new_balance = float(input('Please enter a new balacne: '))
             print('Customer updated.')
         except ValueError:
             print("Invalid input. Not updated")
-        update = BankAccount.BankAccount(name, id, new_base_interest, high_interest, INTEREST_CUTOFF, new_balance)
+        update = BankAccount.BankAccount(name, id, new_base_interest, high_interest, cutoff, new_balance)
         account[id] = update
         save_customers(account)
     else:
