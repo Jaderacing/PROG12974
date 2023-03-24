@@ -68,3 +68,6 @@ Customer Interest Rate: {self.__interestRate}%"""
     
     def getName(self):
         return self.__name
+    
+    def getID(self):
+        return self.__id

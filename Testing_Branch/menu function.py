@@ -42,7 +42,7 @@ def admin_menu():
 2: Display Customers
 3: View Customer Account
 4: Update Customer Account
-5: Exit""")
+5: Return to Main Menu""")
             selection = int(input('Please make your selection: '))
             if selection == 1:
                 accounts = create_cust()
@@ -54,7 +54,6 @@ def admin_menu():
             elif selection == 4:
                 update_cust()
             elif selection == 5:
-                save_customers(accounts)
                 return
             else:
                 selection = int(input('Please input a number between 1-5: '))
@@ -105,11 +104,11 @@ def display_cust_list():
     # while not end_of_file:
     #     try:
     #         cust = pickle.load(input_file)
-    #         cust_dict[cust.self.__id()] = cust
-    #         print(f'Name is {cust.self.__name()}\n')
-    #         print(f'Name is {cust.self.__id()}\n')
-    #         print(f'Name is {cust.self.__balance()}\n')
-    #         print(f'Name is {cust.self.__interestRate()}\n')
+    #         cust_dict[cust.getID()] = cust
+    #         print(f'Name is {cust.getName()}\n')
+    #         print(f'Name is {cust.getID()}\n')
+    #         print(f'Name is {cust.getBalance()}\n')
+    #         print(f'Name is {cust.getInterest()}\n')
 
     #     except EOFError:
     #         end_of_file = True
