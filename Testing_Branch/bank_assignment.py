@@ -64,7 +64,7 @@ def create_cust():
     while(True):
         try:
             numberOfCustomers = int(input('\nHow many customers would you like to create?: '))
-            if numberOfCustomers >= 10 and numberOfCustomers <= 100:
+            if numberOfCustomers >= 1 and numberOfCustomers <= 100:
                 customer_list = {}
                 baseInterest = float(input('Please set the BASE interest rate: '))
                 for customer in range(numberOfCustomers):
